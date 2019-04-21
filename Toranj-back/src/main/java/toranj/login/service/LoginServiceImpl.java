@@ -1,10 +1,12 @@
 package main.java.toranj.login.service;
 
+import main.java.toranj.login.repository.LoginRepository;
+
 public class LoginServiceImpl implements LoginService{
 
-	public boolean checkUser(String user, String password) {
+	public int checkUser(String user, String password) {
 		LoginRepository loginRepository = new LoginRepository();
-		boolean isValid = loginRepository.findUser(user, password);
+		int isValid = loginRepository.findUser(user, password);
 		return isValid;
 	}
 }
