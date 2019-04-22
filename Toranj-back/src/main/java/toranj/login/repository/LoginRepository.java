@@ -1,6 +1,5 @@
 package main.java.toranj.login.repository;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,15 +23,12 @@ public class LoginRepository {
 			Statement st= connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
-			
 			idEmployee = rs.getInt("idEmployee");
 			
 			rs.close();
 			st.close();
 			connectionUtil.close(connection);
 			
-			
-		
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}

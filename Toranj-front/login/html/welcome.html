@@ -3,7 +3,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet"  type="text/css" href="/css/welcome.css">
-<script src="js/login.js"></script>
+<script src="js/js/login.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/4.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,7 +25,7 @@
             <div class="col-md-9 col-lg-8 mx-auto">
               <h3 class="login-heading mb-4">Welcome!</h3>
 
-              <form id="LoginForm" onsubmit="return false">
+              <form id="loginForm" onsubmit="return false">
 
                 <div class="form-label-group">
                   <input type="email" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
@@ -34,7 +42,7 @@
                   <label class="custom-control-label" for="customCheck1">Remember password</label>
                 </div> --> 
                 <div id=LoginButtonDiv>
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" onclick="login()">Sign in</button>
                 </div>
               </form>
 

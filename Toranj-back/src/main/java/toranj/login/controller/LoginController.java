@@ -11,7 +11,7 @@ import main.java.toranj.login.service.LoginServiceImpl;
 public class LoginController {
 	
 	@PostMapping("/login")
-    public int greeting(@RequestParam(value="user") String user, @RequestParam(value="password") String password) {
+    public int greeting(@RequestParam("user") String user, @RequestParam("password") String password) {
         LoginService loginService = new LoginServiceImpl();
         int userId = loginService.checkUser(user, password);
         return userId;
