@@ -1,4 +1,4 @@
-package main.java.toranj.login.service;
+package toranj.login.service;
 
 public interface LoginService {
 	

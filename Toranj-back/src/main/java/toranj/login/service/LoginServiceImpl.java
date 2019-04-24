@@ -1,6 +1,6 @@
-package main.java.toranj.login.service;
+package toranj.login.service;
 
-import main.java.toranj.login.repository.LoginRepository;
+import toranj.login.repository.LoginRepository;
 
 public class LoginServiceImpl implements LoginService{
 

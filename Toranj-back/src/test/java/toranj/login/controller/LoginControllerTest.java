@@ -1,4 +1,4 @@
-package test.java.toranj.login.controller;
+package toranj.login.controller;
 
 
 public class LoginControllerTest {

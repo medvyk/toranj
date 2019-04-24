@@ -1,10 +1,10 @@
-package main.java.toranj.login.repository;
+package toranj.login.repository;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import main.java.toranj.common.repository.DataBaseConexionUtil;
+import toranj.common.repository.DataBaseConexionUtil;
 
 public class LoginRepository {
 	

@@ -1,4 +1,4 @@
-package main.java.toranj.login.domain;
+package toranj.login.domain;
 
 public class User {
 	

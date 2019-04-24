@@ -1,11 +1,11 @@
-package main.java.toranj.login.controller;
+package toranj.login.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.java.toranj.login.service.LoginService;
-import main.java.toranj.login.service.LoginServiceImpl;
+import toranj.login.service.LoginService;
+import toranj.login.service.LoginServiceImpl;
 
 @RestController
 public class LoginController {

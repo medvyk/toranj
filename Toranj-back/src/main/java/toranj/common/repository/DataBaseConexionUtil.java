@@ -1,4 +1,4 @@
-package main.java.toranj.common.repository;
+package toranj.common.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
