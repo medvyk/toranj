@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataBaseConexionUtil {
+//DATA BASE CONNECTION. TO BE CALLED WHEN WE NEED TO MAKE A QUERY
+
+public class DataBaseConnectionUtil {
 	
 	String url= "jdbc:mysql://127.0.0.1:3306/toranjdb";
 	String user="root";

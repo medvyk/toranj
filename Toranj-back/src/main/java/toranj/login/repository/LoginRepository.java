@@ -4,17 +4,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import toranj.common.repository.DataBaseConexionUtil;
+import toranj.common.repository.DataBaseConnectionUtil;
 
 public class LoginRepository {
 	
 
-	public int findUser(String user, String password) {
+	public LoginRepository() {		super();	}	public int findUser(String user, String password) {
 		//Make connection to database
 		//Make query for select user
 		//return key if exists or 0 if doesn't exist
 		
-		DataBaseConexionUtil connectionUtil = new DataBaseConexionUtil();
+		DataBaseConnectionUtil connectionUtil = new DataBaseConnectionUtil();
 		Connection connection = connectionUtil.connect();
 		
 		String query= "SELECT idEmployee FROM user where username= '"+user+"' and password= '" + password +"'";

@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import toranj.common.repository.DataBaseConexionUtil;
+import toranj.common.repository.DataBaseConnectionUtil;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(LoginRepository.class)
@@ -30,25 +30,27 @@ public class LoginRepositoryTest {
 	@Mock
 	ResultSet rs;
 	
-	DataBaseConexionUtil util;
+	DataBaseConnectionUtil util;
+	LoginRepository loginRepository;
 	
 	@Before
 	public void setup() {
-		 util = PowerMockito.mock(DataBaseConexionUtil.class);
+		 loginRepository = new LoginRepository();
+		 util = PowerMockito.mock(DataBaseConnectionUtil.class);
 	}
 	
 	@Test
 	public void findUserTest() throws Exception {
-		PowerMockito.whenNew(DataBaseConexionUtil.class).withNoArguments().thenReturn(util);
+		PowerMockito.whenNew(DataBaseConnectionUtil.class).withNoArguments().thenReturn(util);
 		when(util.connect()).thenReturn(connection);
 		when(connection.createStatement()).thenReturn(st);
 		when(st.executeQuery(any(String.class))).thenReturn(rs);
 		when(rs.getInt("idEmployee")).thenReturn(0);
 		
-		LoginRepository loginRepository = new LoginRepository();
+		
 		int userId = loginRepository.findUser("user", "password");
 		
-		Assert.assertEquals(userId, 0);
+		Assert.assertEquals(0, userId);
 		
 	}
 }
