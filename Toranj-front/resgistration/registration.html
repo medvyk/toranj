@@ -1,183 +1,154 @@
-<!-- 
-SOURCE: https://bootsnipp.com/snippets/97Bpj
-
-PARA CALENDARIO: https://github.com/dmuy/DCalendar
--->
-
-
 <!DOCTYPE html>
+
+<!-- source  https://bootsnipp.com/snippets/dlZAN 
+https://formden.com/blog/date-picker -->
+
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-
-
-    <title>Registration Form</title>
-
-    <!-- Bootstrap -->
-    <link href="calendar.css" rel="stylesheet">
-    <link href="css/dcalendar.picker.css" rel="stylesheet">
-    <style type="text/css">
-
-        #deceased {
-            background-color: #FFF3F5;
-            padding-top: 10px;
-            margin-bottom: 10px;
-        }s
-
-        .remove_field {
-            float: right;
-            cursor: pointer;
-            position: absolute;
-        }
-
-        .remove_field:hover {
-            text-decoration: none;
-        }
-    </style>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-1.12.4.js"></script>
-    <script src="js/dcalendar.picker.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script type='text/javascript'>
-        $(function () {
-            //calendar call function
-            $('.datepicker').dcalendar();
-            $('.datepicker').dcalendarpicker();
-
-            var max_fields = 10; //maximum input boxes allowed
-            var x = 1; //initlal text box count
-
-            $('#add').click(function () {
-                if (x < max_fields) { //max input box allowed
-                    x++; //text box increment
-                    $("#addblock").before('<div class="col-md-12 col-sm-12" id="deceased">	<a href="#" class="remove_field" title="Remove">X</a>	<div class="form-group col-md-3 col-sm-3">            <label for="name">Name*</label>            <input type="text" class="form-control input-sm" id="name" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="gender">Gender*</label>            <input type="text" class="form-control input-sm" id="gender" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="age">Age*</label>            <input type="text" class="form-control input-sm" id="age" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="DOB">Date of Birth or Exact Birth Year*</label>            <input type="text" class="form-control input-sm datepicker" id="DOB' + x + '" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="DOD">Date of Death or Exact Death Year*</label>             <input type="text" class="form-control input-sm datepicker" id="DOD' + x + '" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="mother">Deceased Person\'s Mother Name*</label>            <input type="text" class="form-control input-sm" id="mother" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">            <label for="father">Deceased Person\'s Father Name*</label>            <input type="text" class="form-control input-sm" id="father" placeholder="">        </div>	<div class="form-group col-md-3 col-sm-3">	    <label for="photo">Upload Photo*</label>	    <input type="file" id="photo">	    <p class="help-block">Please upload individual photo. Group photo is not acceptable.</p>	</div></div>');
-
-                    $('.datepicker').dcalendarpicker();
-                } else {
-                    alert("Only 10 Names Allowed");
-                }
-            });
-            $(document).on('click', '.remove_field', function (e) {
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            });
-
-
-        });
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="registration.css">
+    <title>Register new employee / ask for material</title>
+    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 </head>
 
 <body>
-    <div class="panel panel-primary" style="margin:20px;">
-        <div class="panel-heading">
-            <h3 class="panel-title">New Employee</h3>
-        </div>
-        <div class="panel-body">
-            <form>
-                <div class="col-md-12 col-sm-12">
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="name">Name* </label>
-                        <input type="text" class="form-control input-sm" id="name" placeholder="">
-                    </div>
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="surname">Surname*</label>
-                        <input type="text" class="form-control input-sm" id="surname" placeholder="">
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="position">Position*</label>
-                        <select class="form-control input-sm" name="position">
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="office">Office*</label>
-                        <select class="form-control input-sm" name="office">
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-6 col-sm-6">
-                        <label for="arrival">Arrival Date</label>
-                        <input type="text" class="form-control input-sm datepicker" id="arrival" placeholder="">
-                    </div>
+        <div class="container register">
+            <div class="row">
+                <div class="col-md-3 register-left">
+                    <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                    <h3>Welcome</h3>
+                    <p>Don't forget to put all data. Our internal departments will much appreciate it!</p>
+                    <input type="submit" name="" value="Login" /><br />
                 </div>
+                <div class="col-md-9 register-right">
+                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">New Employee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Ask Material</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <h3 class="register-heading"> Employee</h3>
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Last Name " value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select the office</option>
+                                            <option>Cartagena</option>
+                                            <option>Split</option>
+                                            <option>Palma</option>
+                                            <option>Vukovar</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select his position</option>
+                                            <option>Business</option>
+                                            <option>Staff</option>
+                                            <option>Consultant</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <label class="control-label" for="date">Arrival Date</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar-check-o">
+                                                        </i>
+                                                    </div>
+                                                    <input class="form-control" id="date" name="date"
+                                                        placeholder="MM/DD/YYY" type="text" />
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Your Email *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone"
+                                            class="form-control" placeholder="Your Phone *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select your Sequrity
+                                                Question
+                                            </option>
+                                            <option>What is your Birthdate?</option>
+                                            <option>What is Your old Phone Number</option>
+                                            <option>What is your Pet Name?</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Your Answer *"
+                                            value="" />
+                                    </div>
+                                    <input type="submit" class="btnRegister" value="Register" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <h3 class="register-heading">Request Material</h3>
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Employee's First Name *"
+                                            value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Employee's Last Name *"
+                                            value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select Extra Package
+                                            </option>
+                                            <option>jsjs</option>
+                                            <option>jsjs</option>
+                                            <option>jsjs</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select Software</option>
+                                            <option>Full Adobe</option>
+                                            <option>Sketch</option>
+                                            <option>Office 365</option>
+                                        </select>
+                                    </div>
 
-<!-- EMPIEZA EL BLOQUE IT -->
-                <div class="col-md-12 col-sm-12" id="deceased">
-                    <h4 class="panel-title">IT Information</h4>
-                    <div class="form-group col-md-3 col-sm-3">
-                        <label for="name">Laptop*</label>
-                        <select class="form-control input-sm" name="laptop">
-                            <option>Lenovo Yoga </option>
-                            <option>Lenovo E480</option>
-                            <option>MacBook Pro</option>
-                        </select>
-                        <textarea class="form-control input-sm" id="address" rows="3">
-                <span class="help-block">Remeber that all laptops are i5 8GB. If you want to upgrade the laptop, please write in here the material you want 
-                    to add and select an extra package bellow.
-                </span>
-            </textarea>
-                    </div>
-                    <div class="form-group col-md-3 col-sm-3">
-                            <label for="name">Software*</label>
-                            <select class="form-control input-sm" name="software">
-                                <option> </option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                            <textarea class="form-control input-sm" id="address" rows="3">
-                    <span class="help-block"> AQUI PONER RECOMENDACIÓN SOFT SEGÚN POSICIÓN
-                    </span>
-                    </div>
-                </div>
 
-<!-- EMPIEZA BLOQUE EXTRA -->
-                <h4 class="panel-title">Extra</h4>
-                <div class="col-md-12 col-sm-12">
-                    <div class="form-group col-md-3 col-sm-3">
-                        <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                              </label>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12">
-                        <div class="form-group col-md-3 col-sm-3">
-                            <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                  </label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btnRegister" value="Send Petition" />
                         </div>
                     </div>
-
-                <div class="col-md-12 col-sm-12">
-                    <div class="form-group col-md-3 col-sm-3 pull-right">
-                        <input type="submit" class="btn btn-primary" value="Submit" />
-                    </div>
                 </div>
-            </form>
+            </div>
         </div>
+        </div>
+
+        </div>
+    
 </body>
 
 </html>
