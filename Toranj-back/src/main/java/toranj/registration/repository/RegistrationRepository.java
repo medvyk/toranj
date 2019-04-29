@@ -14,20 +14,30 @@ import toranj.registration.domain.Software;
 
 public class RegistrationRepository {
 	
-	public String newEmployee(int idEmployee, String name, String surname, Office office,
-			Position position, Extra extra, Software software) {
+	public String newEmployee( String name, String surname, Office office,
+			Position position) {
 		
 		DataBaseConnectionUtil connectionUtil = new DataBaseConnectionUtil();
 		Connection connection = connectionUtil.connect();	
 		
-		//PONER QUERY
-		String query= "";
+		//Problema_ necesito incorporar el id_office
+		
+		String query= "BEGING; INSERT INTO position(idposition, name) VALUES('','"+position.name+"');"
+				+ "INSERT INTO employee(idemployee, name, surname, idoffice, idposition, idextra, idsoftware) VALUES ('','"+name+"','"+surname+"', '', LAST_INSERT_ID(),'','' )";
+		
+		String success= "";
 		
 		try{
 			Statement st= connection.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			
-			//idEmployee = rs.getInt("idEmployee"); CAMBIAR LO QUE COJO DEL RESULTADO
+			
+			if (rs.next() == false) { System.out.println("ResultSet in empty in Java"); } 
+			else { 
+				do { success= rs.toString(); 
+			 } 
+			while (rs.next()); }
+
 			
 			rs.close();
 			st.close();
@@ -37,9 +47,83 @@ public class RegistrationRepository {
 			System.out.println(e.getMessage());
 		}
 		 
-		//CAMBIAR EL RETURN STATEMENT
-		return query;
 		
+		return success;
+		
+	}
+	//EXTRA
+
+	public String addExtra(Extra extra) {
+		
+		DataBaseConnectionUtil connectionUtil = new DataBaseConnectionUtil();
+		Connection connection = connectionUtil.connect();	
+		
+		
+		String query= "BEGING; INSERT INTO extra(idextra, name) VALUES('','"+extra.name+ "')";
+		String success="";	
+		
+		try{
+			Statement st= connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			if (rs.next() == false) { success="ResultSet in empty in Java";
+			} else { 
+				do { success= rs.toString(); 
+			 } 
+			while (rs.next()); }
+
+			
+			rs.close();
+			st.close();
+			connectionUtil.close(connection);
+			
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		 
+	
+		return success;
+		
+	}
+	
+//SOFTWARE
+
+	public String addSoftware(Software software) {
+		
+		DataBaseConnectionUtil connectionUtil = new DataBaseConnectionUtil();
+		Connection connection = connectionUtil.connect();	
+		
+		
+		String query1= "update software set stock = stock - 1 where idsoftware='"+software.name+"'";
+		String query2= "select stock from software where name='"+software.name+"'";
+		String success;
+		
+		try{
+			Statement st= connection.createStatement();
+			
+			st.addBatch(query1);
+			st.addBatch(query2);
+			
+			ResultSet rs = st.executeQuery("select * from emp");
+			 
+			st.executeBatch();
+			
+			success=rs.getString("stock");
+			
+			
+			rs.close();
+			st.close();
+			
+			
+			connectionUtil.close(connection);
+			
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		 
+	
+		return success;
 	}
 
 }
+
