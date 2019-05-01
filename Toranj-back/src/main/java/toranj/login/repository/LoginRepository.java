@@ -17,7 +17,7 @@ public class LoginRepository {
 		DataBaseConnectionUtil connectionUtil = new DataBaseConnectionUtil();
 		Connection connection = connectionUtil.connect();
 		
-		String query= "SELECT idEmployee FROM user where username= '"+user+"' and password= '" + password +"'";
+		String query= "SELECT idEmployee FROM toranjdb.user where username= '"+user+"' and password= '" + password +"'";
 		int idEmployee= 0;
 		try{
 			Statement st= connection.createStatement();

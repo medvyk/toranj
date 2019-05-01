@@ -29,6 +29,10 @@ public class Extra {
 		this.name = name;
 		this.money = money;
 	}
+	public Extra() {
+		super();
+		
+	}
 	
 	
 

@@ -1,11 +1,14 @@
 package toranj.registration.domain;
 
-import org.apache.catalina.User;
+import java.util.Date;
+import toranj.login.domain.User;
 
 public class Employee {
 	int idEmployee;
 	String name;
 	String surname;
+	Date arrivalDate;
+	String comment;
 	Office office;
 	Position position;
 	Extra extra;
@@ -59,18 +62,36 @@ public class Employee {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Employee(int idEmployee, String name, String surname, Office office, Position position, Extra extra,
-			Software software, User user) {
+	public Date getArrivalDate() {
+		return arrivalDate;
+	}
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public Employee(int idEmployee, String name, String surname, Date arrivalDate, String comment, Office office,
+			Position position, Extra extra, Software software, User user) {
 		super();
 		this.idEmployee = idEmployee;
 		this.name = name;
 		this.surname = surname;
+		this.arrivalDate = arrivalDate;
+		this.comment = comment;
 		this.office = office;
 		this.position = position;
 		this.extra = extra;
 		this.software = software;
 		this.user = user;
 	}
+	public Employee() {
+		super();
+	}
+	
 	
 	
 }

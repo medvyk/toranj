@@ -2,6 +2,9 @@ package toranj.registration.domain;
 
 public class Office {
 	
+	public Office() {
+		super();
+	}
 	int idOffice;
 	String name;
 	public int getIdOffice() {
@@ -21,8 +24,6 @@ public class Office {
 		this.idOffice = idOffice;
 		this.name = name;
 	}
-	
-	
 	
 
 }

@@ -21,6 +21,10 @@ public class Position {
 		this.idPosition = idPosition;
 		this.name = name;
 	}
+	public Position() {
+		super();
+		
+	}
 	
 	
 }

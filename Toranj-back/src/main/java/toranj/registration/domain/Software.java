@@ -37,6 +37,10 @@ public class Software {
 		this.stock = stock;
 		this.price = price;
 	}
+	public Software() {
+		super();
+		
+	}
 	
 	
 
