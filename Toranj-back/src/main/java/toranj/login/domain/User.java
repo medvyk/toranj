@@ -2,10 +2,15 @@ package toranj.login.domain;
 
 public class User {
 	
+	int id;
 	String userName;
 	String password;
 	int key;
+	String session;
 	
+	public User() {
+		super();
+	}
 	
 	public User(String userName, String password, int key) {
 		super();
@@ -32,6 +37,21 @@ public class User {
 		this.key = key;
 	}
 	
-	
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 }

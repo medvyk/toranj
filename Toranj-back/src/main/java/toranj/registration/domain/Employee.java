@@ -9,11 +9,33 @@ public class Employee {
 	String surname;
 	Date arrivalDate;
 	String comment;
+	Laptop laptop;
 	Office office;
 	Position position;
 	Extra extra;
 	Software software;
 	User user;
+	
+	public Employee(int idEmployee, String name, String surname, Date arrivalDate, String comment, Laptop laptop,
+			Office office, Position position, Extra extra, Software software, User user) {
+		super();
+		this.idEmployee = idEmployee;
+		this.name = name;
+		this.surname = surname;
+		this.arrivalDate = arrivalDate;
+		this.comment = comment;
+		this.laptop = laptop;
+		this.office = office;
+		this.position = position;
+		this.extra = extra;
+		this.software = software;
+		this.user = user;
+	}
+	
+	public Employee() {
+		super();
+	}
+
 	public int getIdEmployee() {
 		return idEmployee;
 	}
@@ -74,22 +96,12 @@ public class Employee {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Employee(int idEmployee, String name, String surname, Date arrivalDate, String comment, Office office,
-			Position position, Extra extra, Software software, User user) {
-		super();
-		this.idEmployee = idEmployee;
-		this.name = name;
-		this.surname = surname;
-		this.arrivalDate = arrivalDate;
-		this.comment = comment;
-		this.office = office;
-		this.position = position;
-		this.extra = extra;
-		this.software = software;
-		this.user = user;
+	
+	public Laptop getLaptop() {
+		return laptop;
 	}
-	public Employee() {
-		super();
+	public void setLaptop(Laptop laptop) {
+		this.laptop = laptop;
 	}
 	
 	
