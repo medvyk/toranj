@@ -44,7 +44,7 @@ public class GlobalController {
 	}
 	
 	// SHOW Employees per Position
-		@GetMapping("/employeeAtOffice")
+		@GetMapping("/employeePosition")
 		public ResponseEntity<List<Employee>> displayEmployeePosition(@RequestHeader("Authorization") String session) {
 			LoginService lService = new LoginServiceImpl();
 			if (!lService.checkSession(session)) {
@@ -57,7 +57,7 @@ public class GlobalController {
 		}
 		
 		// SHOW total Employees 
-		@GetMapping("/employeeAtOffice")
+		@GetMapping("/totalEmployee")
 		public ResponseEntity<Integer> sumEmployee(@RequestHeader("Authorization") String session) {
 			LoginService lService = new LoginServiceImpl();
 			if (!lService.checkSession(session)) {
@@ -70,7 +70,7 @@ public class GlobalController {
 		}
 		
 		// SHOW total Software 
-		@GetMapping("/employeeAtOffice")
+		@GetMapping("/totalSoftware")
 		public ResponseEntity <Integer> sumSoftware(@RequestHeader("Authorization") String session) {
 			LoginService lService = new LoginServiceImpl();
 			if (!lService.checkSession(session)) {
@@ -82,7 +82,7 @@ public class GlobalController {
 			}
 		}
 		// SHOW total laptop 
-		@GetMapping("/employeeAtOffice")
+		@GetMapping("/totalLaptop")
 		public ResponseEntity <Integer> sumLaptop(@RequestHeader("Authorization") String session) {
 			LoginService lService = new LoginServiceImpl();
 			if (!lService.checkSession(session)) {
