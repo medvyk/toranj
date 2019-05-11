@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +24,10 @@ import toranj.registration.domain.Position;
 import toranj.registration.domain.Software;
 import toranj.registration.service.RegistrationService;
 import toranj.registration.service.RegistrationServiceImpl;
+
+//This is not a good practice but we need to do it because it is required
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 
 @RestController
 public class RegistrationController {

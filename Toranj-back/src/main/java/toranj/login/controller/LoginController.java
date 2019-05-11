@@ -17,7 +17,8 @@ import toranj.login.service.LoginServiceImpl;
 
 //	WE SPRING TO CREATE THE ENDPOINT. THE FRAMEWORK WILL MANAGE THE ENDPOINT
 
-@CrossOrigin(origins = "C://Users//Medovik//Documents//GitHub//toranj//Toranj-front//login//welcome.html", maxAge = 3600)
+//This is not a good practice but we need to do it because it is required
+@CrossOrigin(origins = "*", maxAge = 3600)
 
 @RestController
 public class LoginController {

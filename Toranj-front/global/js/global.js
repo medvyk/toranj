@@ -1,26 +1,32 @@
+var token = localStorage.getItem("token");
+
 //ajax para TOTAL EMPLOYEE
-function totalEmployee() {
+document.addEventListener("DOMContentLoaded",
+    function totalEmployee() {
 
-    var xmlhttp = new XMLHttpRequest();
-    url = "http://localhost:8080/totalEmployee";
+        var xmlhttp = new XMLHttpRequest();
+        url = "http://localhost:8080/totalEmployee";
 
-    let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
+        let encodedURL = encodeURI(url);
+        xmlhttp.open("GET", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
-    xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
-            loginResults(xmlhttp);
+        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xmlhttp.setRequestHeader("Authorization", token);
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                showTotalEmployees(xmlhttp);
+            }
         }
-    }
-    xmlhttp.send();
-}
+        xmlhttp.send();
+    })
 //respuesta
-function loginResults(xmlhttp) {
+function showTotalEmployees(xmlhttp) {
 
     if (xmlhttp.status == 200) {
 
+        let data = xmlhttp.responseText;
+        document.getElementById("tEmployee").innerHTML = data;
 
     }
 
@@ -28,213 +34,278 @@ function loginResults(xmlhttp) {
 }
 
 //FUNCION PARA TOTAL SOFTWARE
-function totalSoftware() {
+document.addEventListener("DOMContentLoaded", function totalSoftware() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/totalSoftware";
 
     let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
+    xmlhttp.open("GET", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
+    xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
-            loginResults(xmlhttp);
+            showTotalSoftware(xmlhttp);
         }
     }
     xmlhttp.send();
-}
+})
 //respuesta 
-function loginResults(xmlhttp) {
+function showTotalSoftware(xmlhttp) {
 
     if (xmlhttp.status == 200) {
 
+        let data = xmlhttp.responseText;
+        document.getElementById("tSoftware").innerHTML = data;
 
     }
 
 
 }
 //TOTAL LAPTOP
-function totalLaptop() {
+document.addEventListener("DOMContentLoaded", function totalLaptop() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/totalLaptop";
 
     let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
+    xmlhttp.open("GET", url);
+
+    xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
-            loginResults(xmlhttp);
+            showTotalLaptop(xmlhttp);
         }
     }
     xmlhttp.send();
-}
+})
 //respuesta 
-function loginResults(xmlhttp) {
+function showTotalLaptop(xmlhttp) {
 
     if (xmlhttp.status == 200) {
 
-
+        let data = xmlhttp.responseText;
+        document.getElementById("tLaptop").innerHTML = data;
     }
 
 
 }
 //SHOW EMPLOYEE PER OFFICE
-function employeeAtOffice() {
+document.addEventListener("DOMContentLoaded", function employeeAtOffice() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/employeeAtOffice";
 
     let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
+    xmlhttp.open("GET", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
+    xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
-            loginResults(xmlhttp);
+            showOffice(xmlhttp);
         }
     }
     xmlhttp.send();
-}
+})
 //respuesta 
-function loginResults(xmlhttp) {
+function showOffice(xmlhttp) {
 
-    if (xmlhttp.status == 200) {
+    if (xmlhttp.status === 200) {
 
-        let d = xmlhttp.resposeText;
-        let data = JASON.parse(d);
+        let data = JSON.parse(xmlhttp.responseText) ;
+        let office= [];
+        
+        let employee=[];
+        for (var i = 0; i < data.length; i++) {
+            office.push(data[i].office.name);
+        }
+        
+        for (var i = 0; i < data.length; i++) {
+            employee.push(data[i].idEmployee);
+        }
+        //let data= JSON.parse(d);
 
         var ctx = document.getElementById("myBarChart");
-        var myLineChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ["'" + data[i].nombre + "'"],//["January", "February", "March", "April", "May", "June"],
-            datasets: [{
-              label: "employee",
-              backgroundColor: "rgba(2,117,216,1)",
-              borderColor: "rgba(2,117,216,1)",
-              data: [data[i].number], //NO ES NUMBER-VER EN JSON QUE MANDaA  //[4215, 5312, 6251, 7841, 9821, 14984],
-            }],
-          },
-          options: {
-            scales: {
-              xAxes: [{
-                time: {
-                  unit: 'office'
+        
+            
+            var myLineChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: office,
+                    datasets: [{
+                        label: "employee",
+                        backgroundColor: "rgba(2,117,216,1)",
+                        borderColor: "rgba(2,117,216,1)",
+                        data: employee, 
+                    }],
                 },
-                gridLines: {
-                  display: false
-                },
-                ticks: {
-                  maxTicksLimit: 6
+                options: {
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'office'
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 6
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 15,
+                                //maxTicksLimit: 5
+                            },
+                            gridLines: {
+                                display: true
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    }
                 }
-              }],
-              yAxes: [{
-                ticks: {
-                  min: 0,
-                  max: 15000,
-                  maxTicksLimit: 5
-                },
-                gridLines: {
-                  display: true
-                }
-              }],
-            },
-            legend: {
-              display: false
-            }
-          }
-        });
+            });
         
     }
 
 
 }
 //SHOW EMPLOYEE PER POSITION    
-function employeePosition() {
+document.addEventListener("DOMContentLoaded",function employeePosition() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/employeePosition";
 
     let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
+    xmlhttp.open("GET", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
+    xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
-            loginResults(xmlhttp);
+            showPosition(xmlhttp);
         }
     }
     xmlhttp.send();
-}
+})
 //respuesta
-function loginResults(xmlhttp) {
+function showPosition(xmlhttp) {
 
-    if (xmlhttp.status == 200) {
+    if (xmlhttp.status === 200) {
 
-        let d = xmlhttp.resposeText;
-        let data = JASON.parse(d);
+
+        let data = JSON.parse(xmlhttp.responseText) ;
+        let position= [];       
+        let employee=[];
+
+        for (var i = 0; i < data.length; i++) {
+            position.push(data[i].position.name);
+        }
+        
+        for (var i = 0; i < data.length; i++) {
+            employee.push(data[i].idEmployee);
+        }
 
         var ctx = document.getElementById("myPieChart");
-        for (var i = 0; i < data.length; i++) {
+
             var myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ["'" + data[i].nombre + "'"],//["Blue", "Red", "Yellow", "Green"],
+                    labels: position,//["Blue", "Red", "Yellow", "Green"],
                     datasets: [{
-                        data: [data[i].number], //NO ES NUMBER-VER EN JSON QUE MANDA
-                        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+                        data: employee, //NO ES NUMBER-VER EN JSON QUE MANDA
+                        backgroundColor: ['#007bff', '#dc3545', '#ffc107'],
                     }],
                 },
             });
-        }
+        
     }
 
 
 }
 
 //SHOW EMPLOYEE DARA MAIN TABLE    
-function employeeData() {
+document.addEventListener("DOMContentLoaded", function employeeData() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/employeeData";
 
     let encodedURL = encodeURI(url);
-    xmlhttp.open("POST", url);
+    xmlhttp.open("GET", url);
 
-    xmlhttp.setRequestHeader("Content-type", "text/plain");
+    xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
             loginResults(xmlhttp);
         }
     }
     xmlhttp.send();
-}
+})
 //respuesta
 function loginResults(xmlhttp) {
 
-    if (xmlhttp.status == 200) {
+    if (xmlhttp.status === 200) {
 
-        let d = xmlhttp.resposeText;
-        let data = JSON.parse(data);
+        
+        let data = JSON.parse(xmlhttp.responseText) ;      
 
-        function createRow(d) {
-            var tr;
+       // function createRow(d) {
+            let t = document.getElementById("dataTable");
+            
+            var tr = "<tr>";
             for (var i = 0; i < data.length; i++) {
-                tr = "<tr/>";
-                tr.append("<td>" + data[i].name + "</td>");
-                let t = document.getElementById("dataTable");
-                t.append(tr);
-            }
-        }
+                let row = t.insertRow(-1);
+                var cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].name;
 
+                cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].surname;
+
+                cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].office.name;
+
+                cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].position.name;
+
+                cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].extra;
+
+                cellName = row.insertCell(-1);
+                cellName.innerHTML = data[i].arrivalDate;
+
+                cellName= row.insertCell(-1);
+                cellName.innerHTML = data[i].comment;
+                /*tr+="<td>"+data[i].name+"</td>";
+                tr+="<td>"+data[i].surname+"</td>";
+                tr+="<td>"+data[i].office.name+"</td>";
+                tr+="<td>"+data[i].position.name+"</td>";
+                tr+="<td>"+data[i].extra+"</td>";
+                tr+="<td>"+data[i].arrivalDate+"</td>";
+                tr+="<td>"+data[i].comment+"</td>";*/
+                
+            }
+            tr +="</tr>";
+            
+           
+
+           
+       // }
+
+
+        
         /* POR SI HAY QUE HACER LA TABLA EN JS
       
         posiciona el <tbody> debajo del elemento <table>

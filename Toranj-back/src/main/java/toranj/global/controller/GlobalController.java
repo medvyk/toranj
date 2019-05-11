@@ -2,10 +2,13 @@ package toranj.global.controller;
 
 import java.util.List;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 import toranj.global.service.GlobalService;
 import toranj.global.service.GlobalServiceImpl;
@@ -13,8 +16,10 @@ import toranj.login.service.LoginService;
 import toranj.login.service.LoginServiceImpl;
 import toranj.registration.domain.Employee;
 import toranj.registration.domain.Office;
+//This is not a good practice but we need to do it because it is required by localhost
+@CrossOrigin(origins = "*", maxAge = 3600)
 
-
+@RestController
 public class GlobalController {
 	
 	// SHOW Employees in main table

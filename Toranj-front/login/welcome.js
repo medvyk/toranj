@@ -1,39 +1,47 @@
 
+
+var t="token";
+
 //PETICIÓN AJAX
-function login(){
-var un = document.forms["loginForm"]["username"].value;
-var pw = document.forms["loginForm"]["password"].value;
+function login() {
 
-var xmlhttp = new XMLHttpRequest();
-url="http://localhost:8080/login?user="+un+"&password="+pw;
+    un = document.forms["loginForm"]["username"].value;
+    var pw = document.forms["loginForm"]["password"].value;
 
-let encodedURL = encodeURI(url);
-xmlhttp.open("POST",url); 
+    var xmlhttp = new XMLHttpRequest();
+    url = "http://localhost:8080/login";
 
-xmlhttp.setRequestHeader("Content-type","text/plain");
-xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-xmlhttp.onreadystatechange = function(){
-    if (xmlhttp.readyState == 4){
-        loginResults(xmlhttp);
+    let encodedURL = encodeURI(url);
+    xmlhttp.open("POST", url);
+
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4) {
+            loginResults(xmlhttp);
+        }
     }
-}
-xmlhttp.send();
+    let body = '{"userName":"' + un + '", "password":"' + pw + '"}';
+    xmlhttp.send(body);
 }
 //FUNCIÓN COJO RESPUESTA DE JSON
 function loginResults(xmlhttp) {
 
-    if (xmlhttp.status==200){
+    if (xmlhttp.status === 200) {
+        let user = JSON.parse(xmlhttp.responseText);
+        localStorage.setItem(t, user.token);
 
-        let idUser = xmlhttp.resposeText;
+     
+         window.location.replace("index.html");
         
-        if(idUser==0){
-            alert("User or password is incorrect!");
-        }else{
-            window.location.replace("http://localhost:8080/registration.com");
-        }
-    }
-  
+    }else if (xmlhttp.status === 500){
+        alert("In this moment the server is not available. We will be back soon");
+    }else if(xmlhttp.status === 401){
 
+        alert("User or password are incorrect");
     }
+
+
+}
 
 
