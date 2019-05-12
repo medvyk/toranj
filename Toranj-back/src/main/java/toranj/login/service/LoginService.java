@@ -10,5 +10,7 @@ public interface LoginService {
 	public String getSession(User user);
 	
 	public boolean checkSession(String session);
+	
+	public boolean logout(String session);
 
 }

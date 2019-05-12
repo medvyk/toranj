@@ -26,14 +26,14 @@ import toranj.registration.service.RegistrationService;
 import toranj.registration.service.RegistrationServiceImpl;
 
 //This is not a good practice but we need to do it because it is required
-@CrossOrigin(origins = "*", maxAge = 3600)
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 
 @RestController
 public class RegistrationController {
 
 	// ADD EMPLOYEE
-	@PutMapping("/employee")
+	@PutMapping("/addEmployee")
 	public ResponseEntity addEmployee(@RequestHeader("Authorization") String session, @RequestBody Employee employee) {
 		LoginService lService = new LoginServiceImpl();
 		if (!lService.checkSession(session)) {

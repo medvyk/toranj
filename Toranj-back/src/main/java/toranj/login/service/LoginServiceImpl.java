@@ -39,4 +39,10 @@ public class LoginServiceImpl implements LoginService{
 		User user = eHelper.decodeValues(session);
 		return loginRepository.checkSession(user);
 	}
+
+	@Override
+	public boolean logout(String session) {
+		User user = eHelper.decodeValues(session);
+		return loginRepository.logout(user);
+	}
 }

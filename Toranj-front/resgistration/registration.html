@@ -15,6 +15,7 @@ https://formden.com/blog/date-picker -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="registration.js"></script>
     
 </head>
 
@@ -26,7 +27,7 @@ https://formden.com/blog/date-picker -->
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Toranj</h3>
                         <p>Don't forget to put all data. Our internal departments will much appreciate it!</p>
-                        <input type="submit" name="" value="Go to Main"/><br/>
+                        <input type="submit" name="" value="Go to Main" onclick="backToMain()"/><br/>
                     </div>
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -43,17 +44,12 @@ https://formden.com/blog/date-picker -->
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="First Name " value="" />
+                                            <input id="name" type="text" class="form-control" placeholder="First Name " value="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Last Name " value="" />
+                                            <input id="surname" type="text" class="form-control" placeholder="Last Name " value="" />
                                         </div>
-                                        <div class="form-group">
-                                            <select id="selectOffice" class="form-control">
-                                                <option class="hidden"  selected disabled>Please select Office</option>
-                                                <option>What is your Birthdate?</option>
-                
-                                            </select>
+                                        <div class="form-group">                                
                                         </div>
                                         <div class="form-group">   
                                             <label class="radio inline">
@@ -70,25 +66,19 @@ https://formden.com/blog/date-picker -->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option class="hidden"  selected disabled>Please select Position</option>
-                                                <option>What is your Birthdate?</option>
-                                                <option>What is Your old Phone Number</option>
-                                                <option>What is your Pet Name?</option>
+                                            <select id="selectPosition" class="form-control">
+                                                <option class="hidden" value="0"  selected disabled>Please select Position</option>                        
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option class="hidden"  selected disabled>Need software</option>
-                                                <option>What is your Birthdate?</option>
-                                                <option>What is Your old Phone Number</option>
-                                                <option>What is your Pet Name?</option>
+                                            <select id="selectOffice" class="form-control">
+                                                <option class="hidden" value="0" selected disabled>Please select Office</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Any comment you want to add" value="" />
+                                            <input id="comment" type="text" class="form-control" placeholder="Any comment you want to add" value="" />
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                        <input type="submit" class="btnRegister"  value="Register" onclick="addEmployee()"/>
                                     </div>
                                 </div>
                             </div>
@@ -97,38 +87,36 @@ https://formden.com/blog/date-picker -->
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Employee's First Name" value="" />
+                                            <select id="selectEmployee" class="form-control">
+                                                <option class="hidden" value="0" selected disabled>Please Select an Employee</option>                                            
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Employee's Last Name" value="" />
+                                            
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Employee's Position" value="" />
+                                            <select id="selectLaptop" class="form-control" onchange="price()">
+                                                <option value="0"  class="hidden"  selected disabled>Please Select Laptop</option>                                            
+                                            </select>
                                         </div>
                                        
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option class="hidden" selected disabled>Please select Extra Package
-                                                </option>
-                                                <option>jsjs</option>
-                                                <option>jsjs</option>
-                                                <option>jsjs</option>
+                                            <select id="selectExtra" class="form-control" onchange="price()">
+                                                <option value="0" class="hidden" selected disabled>Please select Extra Package</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option class="hidden"  selected disabled>Please select software</option>
-                                                <option>Sketch</option>
-                                                <option>Adobe</option>
-                                                <option>Whdjd</option>
+                                            <select id="selectSoftware" class="form-control" onchange="price()">
+                                                <option value="0" class="hidden"  selected disabled>Please select software</option>
+                                                
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="`Ask reason *" value="" />
+                                            <label id="price"  type="text" class="form-control" placeholder="Total Price" value="">0 €</label>
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Place order"/>
+                                        <input type="submit" class="btnRegister"  value="Place order" onclick="addMaterial()"/>
                                     </div>
                                 </div>
                             </div>

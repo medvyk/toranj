@@ -119,69 +119,69 @@ function showOffice(xmlhttp) {
 
     if (xmlhttp.status === 200) {
 
-        let data = JSON.parse(xmlhttp.responseText) ;
-        let office= [];
-        
-        let employee=[];
+        let data = JSON.parse(xmlhttp.responseText);
+        let office = [];
+
+        let employee = [];
         for (var i = 0; i < data.length; i++) {
             office.push(data[i].office.name);
         }
-        
+
         for (var i = 0; i < data.length; i++) {
             employee.push(data[i].idEmployee);
         }
         //let data= JSON.parse(d);
 
         var ctx = document.getElementById("myBarChart");
-        
-            
-            var myLineChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: office,
-                    datasets: [{
-                        label: "employee",
-                        backgroundColor: "rgba(2,117,216,1)",
-                        borderColor: "rgba(2,117,216,1)",
-                        data: employee, 
+
+
+        var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: office,
+                datasets: [{
+                    label: "employee",
+                    backgroundColor: "rgba(2,117,216,1)",
+                    borderColor: "rgba(2,117,216,1)",
+                    data: employee,
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'office'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 6
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 15,
+                            //maxTicksLimit: 5
+                        },
+                        gridLines: {
+                            display: true
+                        }
                     }],
                 },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            time: {
-                                unit: 'office'
-                            },
-                            gridLines: {
-                                display: false
-                            },
-                            ticks: {
-                                maxTicksLimit: 6
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                min: 0,
-                                max: 15,
-                                //maxTicksLimit: 5
-                            },
-                            gridLines: {
-                                display: true
-                            }
-                        }],
-                    },
-                    legend: {
-                        display: false
-                    }
+                legend: {
+                    display: false
                 }
-            });
-        
+            }
+        });
+
     }
 
 
 }
 //SHOW EMPLOYEE PER POSITION    
-document.addEventListener("DOMContentLoaded",function employeePosition() {
+document.addEventListener("DOMContentLoaded", function employeePosition() {
 
     var xmlhttp = new XMLHttpRequest();
     url = "http://localhost:8080/employeePosition";
@@ -205,31 +205,31 @@ function showPosition(xmlhttp) {
     if (xmlhttp.status === 200) {
 
 
-        let data = JSON.parse(xmlhttp.responseText) ;
-        let position= [];       
-        let employee=[];
+        let data = JSON.parse(xmlhttp.responseText);
+        let position = [];
+        let employee = [];
 
         for (var i = 0; i < data.length; i++) {
             position.push(data[i].position.name);
         }
-        
+
         for (var i = 0; i < data.length; i++) {
             employee.push(data[i].idEmployee);
         }
 
         var ctx = document.getElementById("myPieChart");
 
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: position,//["Blue", "Red", "Yellow", "Green"],
-                    datasets: [{
-                        data: employee, //NO ES NUMBER-VER EN JSON QUE MANDA
-                        backgroundColor: ['#007bff', '#dc3545', '#ffc107'],
-                    }],
-                },
-            });
-        
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: position,//["Blue", "Red", "Yellow", "Green"],
+                datasets: [{
+                    data: employee, //NO ES NUMBER-VER EN JSON QUE MANDA
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107'],
+                }],
+            },
+        });
+
     }
 
 
@@ -259,63 +259,74 @@ function loginResults(xmlhttp) {
 
     if (xmlhttp.status === 200) {
 
-        
-        let data = JSON.parse(xmlhttp.responseText) ;      
 
-       // function createRow(d) {
-            let t = document.getElementById("dataTable");
-            
-            var tr = "<tr>";
-            for (var i = 0; i < data.length; i++) {
-                let row = t.insertRow(-1);
-                var cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].name;
+        let data = JSON.parse(xmlhttp.responseText);
 
-                cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].surname;
+        // function createRow(d) {
+        let t = document.getElementById("dataTable");
 
-                cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].office.name;
+        var tr = "<tr>";
+        for (var i = 0; i < data.length; i++) {
+            let row = t.insertRow(-1);
+            var cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].name;
 
-                cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].position.name;
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].surname;
 
-                cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].extra;
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].office.name;
 
-                cellName = row.insertCell(-1);
-                cellName.innerHTML = data[i].arrivalDate;
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].position.name;
 
-                cellName= row.insertCell(-1);
-                cellName.innerHTML = data[i].comment;
-                /*tr+="<td>"+data[i].name+"</td>";
-                tr+="<td>"+data[i].surname+"</td>";
-                tr+="<td>"+data[i].office.name+"</td>";
-                tr+="<td>"+data[i].position.name+"</td>";
-                tr+="<td>"+data[i].extra+"</td>";
-                tr+="<td>"+data[i].arrivalDate+"</td>";
-                tr+="<td>"+data[i].comment+"</td>";*/
-                
-            }
-            tr +="</tr>";
-            
-           
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].extra.name;
 
-           
-       // }
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].arrivalDate;
+
+            cellName = row.insertCell(-1);
+            cellName.innerHTML = data[i].comment;
 
 
-        
-        /* POR SI HAY QUE HACER LA TABLA EN JS
-      
-        posiciona el <tbody> debajo del elemento <table>
-        tabla.appendChild(tblBody);
-        appends <table> into <body>
-        body.appendChild(tabla);
-           modifica el atributo "border" de la tabla y lo fija a "2";
-        tabla.setAttribute("border", "2"); */
+        }
+        tr += "</tr>";
+
+
+
+
+
     }
 
 
 }
 
+//LOGOUT
+function goodbye() {
+
+    var xmlhttp = new XMLHttpRequest();
+    url = "http://localhost:8080/logout";
+
+    let encodedURL = encodeURI(url);
+    xmlhttp.open("POST", url);
+
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xmlhttp.setRequestHeader("Authorization", token);
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4) {
+            adios(xmlhttp);
+        }
+    }
+    xmlhttp.send();
+}
+
+//respuesta
+function adios(xmlhttp) {
+
+    if (xmlhttp.status === 200) {
+
+        window.location.replace("welcome.html");
+    }
+}

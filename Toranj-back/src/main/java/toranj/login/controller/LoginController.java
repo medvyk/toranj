@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,5 +47,20 @@ public class LoginController {
         return new ResponseEntity<>(session, HttpStatus.UNAUTHORIZED); 
     }
 	
+	@PostMapping("/logout")
+    public ResponseEntity logout(@RequestHeader("Authorization") String session) {
+		LoginService lService = new LoginServiceImpl();
+		if (!lService.checkSession(session)) {
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+		} else {
+			boolean isOk = lService.logout(session);
+			if(isOk) {
+				return new ResponseEntity(HttpStatus.OK);
+			} else {
+				return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		
+	}
 
 }

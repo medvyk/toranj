@@ -26,11 +26,11 @@ public class RegistrationRepository {
 		Connection connection = connectionUtil.connect();
 
 		Date date = new Date(employee.getArrivalDate().getTime());
-		String query = "INSERT INTO toranjdb.employee(name, surname, idoffice, idposition, idsoftware, dateArrival, comment) "
+		String query = "INSERT INTO toranjdb.employee(name, surname, idoffice, idposition, idsoftware, dateArrival, comment, idLaptop, idExtra) "
 				+ " VALUES ('" + employee.getName() + "','" + employee.getSurname() + "', '"
 				+ employee.getOffice().getIdOffice() + "'," + " '" + employee.getPosition().getIdPosition() + "','"
 				+ employee.getSoftware().getIdSoftware() + "'," + " '" + date + "', '"
-				+ employee.getComment() + "')";
+				+ employee.getComment() + "','"+employee.getLaptop().getIdLaptop() + "', '"+employee.getExtra().getIdExtra()+"')";
 
 		boolean success = true;
 
@@ -133,8 +133,8 @@ public class RegistrationRepository {
 			while (rs.next()) {
 				Software s = new Software();
 				s.setIdSoftware(rs.getInt("idSoftware"));
-				s.setName(rs.getString("name"));
-				//e.setPrice(rs.getInt("price"));
+				s.setName(rs.getString("Name"));
+				s.setPrice(rs.getInt("Price"));
 				softwares.add(s);
 			}
 
@@ -200,7 +200,7 @@ public class RegistrationRepository {
 					Laptop l = new Laptop();
 					l.setIdLaptop(rs.getInt("idLaptop"));
 					l.setName(rs.getString("name"));
-					//e.setPrice(rs.getInt("price"));
+					l.setPrice(rs.getInt("price"));
 					laptops.add(l);
 				}
 
@@ -232,8 +232,8 @@ public class RegistrationRepository {
 					while (rs.next()) {
 						Extra x = new Extra();
 						x.setIdExtra(rs.getInt("idExtra"));
-						x.setName(rs.getString("name"));
-						x.setMoney(rs.getInt("money"));
+						x.setName(rs.getString("Name"));
+						x.setMoney(rs.getInt("Money"));
 						extras.add(x);
 					}
 
