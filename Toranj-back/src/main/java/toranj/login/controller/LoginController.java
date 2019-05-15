@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import toranj.common.helper.EncodingHelper;
 import toranj.login.domain.Session;
 import toranj.login.domain.User;
+import toranj.login.repository.LoginRepository;
 import toranj.login.service.LoginService;
 import toranj.login.service.LoginServiceImpl;
 
@@ -23,14 +25,13 @@ import toranj.login.service.LoginServiceImpl;
 
 @RestController
 public class LoginController {
-	
-	public LoginController() {
-	}
+	LoginRepository loginRepository = new LoginRepository();
+	EncodingHelper eHelper = new EncodingHelper();
 	
 	@PostMapping("/login")
     public ResponseEntity<Session> login(@RequestBody User user) {
 		Session session = new Session();
-        LoginService loginService = new LoginServiceImpl();
+        LoginService loginService = new LoginServiceImpl(loginRepository, eHelper);
         int userId = loginService.checkUser(user);
         if(userId > 0) {
         	user.setId(userId);
@@ -49,7 +50,7 @@ public class LoginController {
 	
 	@PostMapping("/logout")
     public ResponseEntity logout(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl();
+		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {

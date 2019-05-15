@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import toranj.common.repository.DataBaseConnectionUtil;
+import toranj.login.domain.User;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(LoginRepository.class)
@@ -46,11 +47,55 @@ public class LoginRepositoryTest {
 		when(connection.createStatement()).thenReturn(st);
 		when(st.executeQuery(any(String.class))).thenReturn(rs);
 		when(rs.getInt("idEmployee")).thenReturn(0);
+		User user = new User();
+	
 		
+		int userId = loginRepository.findUser(user);
 		
-//		int userId = loginRepository.findUser("user", "password");
+		Assert.assertEquals(0, userId);
 		
-//		Assert.assertEquals(0, userId);
+	}
+	
+	@Test
+	public void setSessiontest() throws Exception {
+		
+		PowerMockito.whenNew(DataBaseConnectionUtil.class).withNoArguments().thenReturn(util);
+		when(util.connect()).thenReturn(connection);
+		when(connection.createStatement()).thenReturn(st);
+		when(st.executeUpdate(any(String.class))).thenReturn(1);
+		
+		int result = loginRepository.setSession(1, "session");
+		
+		Assert.assertEquals(1, result);
+		
+	}
+	
+	@Test
+	public void checkSessionTest() throws Exception {
+		User user = new User();
+		
+		PowerMockito.whenNew(DataBaseConnectionUtil.class).withNoArguments().thenReturn(util);
+		when(util.connect()).thenReturn(connection);
+		when(connection.createStatement()).thenReturn(st);
+		when(st.executeQuery(any(String.class))).thenReturn(rs);
+		when(rs.next()).thenReturn(true);
+		
+		boolean result = loginRepository.checkSession(user);
+		
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void logoutTest() throws Exception {
+		int row = 1;
+		User user = new User();
+		PowerMockito.whenNew(DataBaseConnectionUtil.class).withNoArguments().thenReturn(util);
+		when(util.connect()).thenReturn(connection);
+		when(connection.createStatement()).thenReturn(st);
+		when(st.executeUpdate(any(String.class))).thenReturn(row);
+
+		boolean result = loginRepository.logout(user);
+		Assert.assertTrue(result);
 		
 	}
 }

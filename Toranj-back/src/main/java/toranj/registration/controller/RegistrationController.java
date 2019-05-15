@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import toranj.common.helper.EncodingHelper;
 import toranj.login.repository.LoginRepository;
 import toranj.login.service.LoginService;
 import toranj.login.service.LoginServiceImpl;
@@ -22,6 +23,7 @@ import toranj.registration.domain.Office;
 import toranj.registration.domain.Order;
 import toranj.registration.domain.Position;
 import toranj.registration.domain.Software;
+import toranj.registration.repository.RegistrationRepository;
 import toranj.registration.service.RegistrationService;
 import toranj.registration.service.RegistrationServiceImpl;
 
@@ -31,15 +33,19 @@ import toranj.registration.service.RegistrationServiceImpl;
 
 @RestController
 public class RegistrationController {
+	LoginRepository loginRepository = new LoginRepository();
+	EncodingHelper eHelper = new EncodingHelper();
 
 	// ADD EMPLOYEE
 	@PutMapping("/addEmployee")
 	public ResponseEntity addEmployee(@RequestHeader("Authorization") String session, @RequestBody Employee employee) {
-		LoginService lService = new LoginServiceImpl();
+		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+			
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		boolean isOk = registrationService.addMember(employee);
 		if (isOk) {
 			return new ResponseEntity(HttpStatus.OK);
@@ -52,11 +58,12 @@ public class RegistrationController {
 	// SHOW OFFICE
 	@GetMapping("/offices")
 	public ResponseEntity<List<Office>> getOffices(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl();
+		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-			RegistrationService registrationService = new RegistrationServiceImpl();
+			RegistrationRepository registrationRepository = new RegistrationRepository();
+			RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 			List<Office> offices = registrationService.showOffices();
 			return ResponseEntity.ok(offices);
 		}
@@ -65,11 +72,12 @@ public class RegistrationController {
 	// SHOW POSITION
 	@GetMapping("/positions")
 	public ResponseEntity<List<Position>> getPosition(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl();
+		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-			RegistrationService registrationService = new RegistrationServiceImpl();
+			RegistrationRepository registrationRepository = new RegistrationRepository();
+			RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 			List<Position> positions = registrationService.showPosition();
 			return ResponseEntity.ok(positions);
 		}
@@ -78,11 +86,12 @@ public class RegistrationController {
 	// SHOW SOFTWARE
 	@GetMapping("/softwares")
 	public ResponseEntity<List<Software>> getSoftwares(@RequestHeader("Authorization") String session) {
-		LoginService lService= new LoginServiceImpl();
+		LoginService lService= new LoginServiceImpl(loginRepository, eHelper);
 		if(!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		List<Software> softwares = registrationService.showSoftware();
 		return ResponseEntity.ok(softwares);
 	}
@@ -91,11 +100,12 @@ public class RegistrationController {
 	// SHOW EMPLOYEE
 	@GetMapping("/employee")
 	public ResponseEntity<List<Employee>> getEmployee(@RequestHeader("Authorization") String session) {
-		LoginService lService= new LoginServiceImpl();
+		LoginService lService= new LoginServiceImpl(loginRepository, eHelper);
 		if(!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		List<Employee> employees = registrationService.showEmployee();
 		return ResponseEntity.ok(employees);
 	}
@@ -104,11 +114,12 @@ public class RegistrationController {
 	// SHOW LAPTOPS
 	@GetMapping("/laptops")
 	public ResponseEntity<List<Laptop>> getLaptop(@RequestHeader("Authorization") String session) {
-		LoginService lService= new LoginServiceImpl();
+		LoginService lService= new LoginServiceImpl(loginRepository, eHelper);
 		if(!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		List<Laptop> laptops = registrationService.showLaptop();
 		return ResponseEntity.ok(laptops);
 	}
@@ -117,11 +128,12 @@ public class RegistrationController {
 	// SHOW EXTRA
 	@GetMapping("/extras")
 	public ResponseEntity<List<Extra>> getExtra(@RequestHeader("Authorization") String session) {
-		LoginService lService= new LoginServiceImpl();
+		LoginService lService= new LoginServiceImpl(loginRepository, eHelper);
 		if(!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		List<Extra> extras = registrationService.showExtra();
 		return ResponseEntity.ok(extras);
 	}
@@ -130,11 +142,12 @@ public class RegistrationController {
 	// UPDATE ORDER
 	@PostMapping("/order")
 	public ResponseEntity addEmployee(@RequestHeader("Authorization") String session, @RequestBody Order order) {
-		LoginService lService = new LoginServiceImpl();
+		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-		RegistrationService registrationService = new RegistrationServiceImpl();
+		RegistrationRepository registrationRepository = new RegistrationRepository();
+		RegistrationService registrationService = new RegistrationServiceImpl(registrationRepository);
 		boolean isOk = registrationService.makeOrder(order);
 		if (isOk) {
 			return new ResponseEntity(HttpStatus.OK);

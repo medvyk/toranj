@@ -8,14 +8,15 @@ import toranj.registration.domain.Employee;
 
 public class GlobalServiceImpl implements GlobalService{
 
-	public GlobalServiceImpl() {
-		super();
+	GlobalRepository globalRepository;
+	
+	public GlobalServiceImpl(GlobalRepository globalRepository) {
+		this.globalRepository = globalRepository;
 		
 	}
 	
 	public List<Employee> displayEmployee() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		List<Employee> fullEmployee = globalRepository.showEmployee();
 
@@ -24,7 +25,6 @@ public class GlobalServiceImpl implements GlobalService{
 	
 	public List<Employee> displayEmployeeOffice() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		List<Employee> employeeAtOffice = globalRepository.showEmployeeAtOffice();
 
@@ -33,7 +33,6 @@ public class GlobalServiceImpl implements GlobalService{
 	
 	public List<Employee> displayEmployeePosition() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		List<Employee> employeePosition = globalRepository.showEmployeePosition();
 
@@ -42,7 +41,6 @@ public class GlobalServiceImpl implements GlobalService{
 	
 	public int sumEmployee() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		int totalEmployee = globalRepository.totalEmployee();
 
@@ -51,7 +49,6 @@ public class GlobalServiceImpl implements GlobalService{
 
 	public int sumSoftware() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		int totalSoftware = globalRepository.totalSoftware();
 
@@ -60,7 +57,6 @@ public class GlobalServiceImpl implements GlobalService{
 	
 	public int sumLaptop() {
 
-		GlobalRepository globalRepository = new GlobalRepository();
 
 		int totalLaptop = globalRepository.totalLaptop();
 

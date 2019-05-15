@@ -13,13 +13,14 @@ import toranj.registration.repository.RegistrationRepository;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
-	public RegistrationServiceImpl() {
-		super();
+	RegistrationRepository registrationRepository;
+	
+	public RegistrationServiceImpl(RegistrationRepository registrationRepository) {
+		this.registrationRepository = registrationRepository;
 	}
 
 	public boolean addMember(Employee employee) {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		boolean success = registrationRepository.addEmployee(employee);
 
@@ -28,7 +29,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Office> showOffices() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Office> offices = registrationRepository.getOffices();
 
@@ -37,7 +37,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Position> showPosition() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Position> positions = registrationRepository.getPosition();
 
@@ -46,7 +45,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Software> showSoftware() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Software> softwares = registrationRepository.getSoftware();
 
@@ -55,7 +53,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Employee> showEmployee() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Employee> employees = registrationRepository.getEmployee();
 
@@ -64,7 +61,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Laptop> showLaptop() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Laptop> laptops = registrationRepository.getLaptop();
 
@@ -73,7 +69,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public List<Extra> showExtra() {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		List<Extra> extras = registrationRepository.getExtra();
 
@@ -82,7 +77,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	public boolean makeOrder(Order order) {
 
-		RegistrationRepository registrationRepository = new RegistrationRepository();
 
 		boolean success = registrationRepository.placeOrder(order);
 

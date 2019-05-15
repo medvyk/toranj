@@ -12,9 +12,9 @@ public class LoginServiceImpl implements LoginService{
 	EncodingHelper eHelper;
 	
 
-	public LoginServiceImpl() {
-		eHelper = new EncodingHelper();
-		loginRepository = new LoginRepository();
+	public LoginServiceImpl(LoginRepository loginRepository, EncodingHelper eHelper) {
+		this.eHelper = eHelper;
+		this.loginRepository = loginRepository;
 	}
 
 	@Override
@@ -45,4 +45,5 @@ public class LoginServiceImpl implements LoginService{
 		User user = eHelper.decodeValues(session);
 		return loginRepository.logout(user);
 	}
+
 }
