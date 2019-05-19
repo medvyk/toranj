@@ -16,25 +16,15 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import toranj.login.service.LoginService;
-import toranj.login.service.LoginServiceImpl;
-import toranj.common.helper.EncodingHelper;
 import toranj.login.domain.Session;
 import toranj.login.domain.User;
-import toranj.login.repository.LoginRepository;
-
 
 @RunWith(PowerMockRunner.class)
-//@PrepareForTest({LoginServiceImpl.class, LoginRepository.class,EncodingHelper.class })
+@PrepareForTest(LoginController.class)
 public class LoginControllerTest {
 
 	@Mock
-	LoginRepository loginRepository;
-	
-	@Mock
-	EncodingHelper eHelper;
-	
-	
-	//LoginService loginService = spy(LoginServiceImpl.class);
+	LoginService loginService;
 	
 	//global variable
 	LoginController loginController;
@@ -42,33 +32,28 @@ public class LoginControllerTest {
 	//create in before an object of the class
 	@Before
 	public void setup() throws Exception {
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
+		PowerMockito.mockStatic(LoginController.class);
 		loginController = new LoginController();
 	}
 	
 	
 	@Test
 	public void loginUnauthorizedTest() throws Exception {
-		//PowerMockito.whenNew(LoginService.class).withAnyArguments().thenReturn(loginService);
+		when(LoginController.getLoginService()).thenReturn(loginService);
 		User user = new User();
-		//when(loginService.checkUser(any(User.class))).thenReturn(0);
-		when(loginRepository.findUser(any(User.class))).thenReturn(0);
-		//User user = new User();
+		when(loginService.checkUser(any(User.class))).thenReturn(0);
 		ResponseEntity<Session> session = loginController.login(user);
 		
 		assertEquals(HttpStatus.UNAUTHORIZED, session.getStatusCode());
 		
 	}
 	
-	//@Test
+	@Test
 	public void loginTest() throws Exception {
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
-		when(loginRepository.findUser(any(User.class))).thenReturn(1);
+		when(LoginController.getLoginService()).thenReturn(loginService);
 		String token = "session";
-		when(eHelper.encodeValues(any(User.class))).thenReturn(token);
-		when(loginRepository.setSession(anyInt(), anyString())).thenReturn(1);
+		when(loginService.checkUser(any(User.class))).thenReturn(1);
+		when(loginService.getSession(any(User.class))).thenReturn(token);
 	
 		User user = new User();
 		user.setUserName("user");
@@ -80,14 +65,11 @@ public class LoginControllerTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void loginInternalServerErrorTest() throws Exception {
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
-		when(loginRepository.findUser(any(User.class))).thenReturn(1);
-		String token = "session";
-		when(eHelper.encodeValues(any(User.class))).thenReturn(token);
-		when(loginRepository.setSession(anyInt(), anyString())).thenReturn(0);
+		when(LoginController.getLoginService()).thenReturn(loginService);
+		when(loginService.checkUser(any(User.class))).thenReturn(1);
+		when(loginService.getSession(any(User.class))).thenReturn(null);
 	
 		User user = new User();
 		user.setUserName("user");
@@ -99,18 +81,10 @@ public class LoginControllerTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void logoutUnauthorizedTest() throws Exception {
-		User user = new User();
-		user.setUserName("");
-		user.setId(1);
-		user.setPassword("");
-		user.setSession("");
-		
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
-		when(loginRepository.checkSession(any(User.class))).thenReturn(false);
-		when(eHelper.decodeValues(any(String.class))).thenReturn(user);
+		when(LoginController.getLoginService()).thenReturn(loginService);
+		when(loginService.checkSession(any(String.class))).thenReturn(false);
 		
 		ResponseEntity byeSession = loginController.logout("");
 		
@@ -118,40 +92,22 @@ public class LoginControllerTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void logout() throws Exception {
-		User user = new User();
-		user.setUserName("");
-		user.setId(1);
-		user.setPassword("");
-		user.setSession("");
-		
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
-		when(loginRepository.checkSession(any(User.class))).thenReturn(true);
-		when(eHelper.decodeValues(any(String.class))).thenReturn(user);
-		when(loginRepository.logout(any(User.class))).thenReturn(true);
-		
+		when(LoginController.getLoginService()).thenReturn(loginService);
+		when(loginService.checkSession(any(String.class))).thenReturn(true);
+		when(loginService.logout(any(String.class))).thenReturn(true);
 		
 		ResponseEntity okSession = loginController.logout("");
 		assertEquals(HttpStatus.OK, okSession.getStatusCode());
 		
 	}
 
-	//@Test
+	@Test
 	public void logoutInternalServerError() throws Exception {
-		User user = new User();
-		user.setUserName("");
-		user.setId(1);
-		user.setPassword("");
-		user.setSession("");
-		
-		PowerMockito.whenNew(LoginRepository.class).withAnyArguments().thenReturn(loginRepository);
-		PowerMockito.whenNew(EncodingHelper.class).withAnyArguments().thenReturn(eHelper);
-		when(loginRepository.checkSession(any(User.class))).thenReturn(true);
-		when(eHelper.decodeValues(any(String.class))).thenReturn(user);
-		when(loginRepository.logout(any(User.class))).thenReturn(false);
-		
+		when(LoginController.getLoginService()).thenReturn(loginService);
+		when(loginService.checkSession(any(String.class))).thenReturn(true);
+		when(loginService.logout(any(String.class))).thenReturn(false);
 		
 		ResponseEntity session = loginController.logout("");
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, session.getStatusCode());

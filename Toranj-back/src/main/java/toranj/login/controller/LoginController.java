@@ -1,6 +1,5 @@
 package toranj.login.controller;
 
-import java.util.Base64;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import toranj.common.helper.EncodingHelper;
@@ -25,13 +23,11 @@ import toranj.login.service.LoginServiceImpl;
 
 @RestController
 public class LoginController {
-	LoginRepository loginRepository = new LoginRepository();
-	EncodingHelper eHelper = new EncodingHelper();
 	
 	@PostMapping("/login")
     public ResponseEntity<Session> login(@RequestBody User user) {
 		Session session = new Session();
-        LoginService loginService = new LoginServiceImpl(loginRepository, eHelper);
+        LoginService loginService = getLoginService();
         int userId = loginService.checkUser(user);
         if(userId > 0) {
         	user.setId(userId);
@@ -50,7 +46,7 @@ public class LoginController {
 	
 	@PostMapping("/logout")
     public ResponseEntity logout(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+		LoginService lService = getLoginService();
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
@@ -62,6 +58,10 @@ public class LoginController {
 			}
 		}
 		
+	}
+	
+	protected static LoginService getLoginService() {
+		return new LoginServiceImpl(new LoginRepository(), new EncodingHelper());
 	}
 
 }

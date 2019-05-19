@@ -24,18 +24,15 @@ import toranj.registration.domain.Office;
 
 @RestController
 public class GlobalController {
-	LoginRepository loginRepository = new LoginRepository();
-	EncodingHelper eHelper = new EncodingHelper();
 	
 	// SHOW Employees in main table
 	@GetMapping("/employeeData")
 	public ResponseEntity<List<Employee>> displayEmployee(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+		LoginService lService = getLoginService();
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-			GlobalRepository globalRepository = new GlobalRepository();
-			GlobalService globalService = new GlobalServiceImpl(globalRepository);
+			GlobalService globalService = getGlobalService();
 			List<Employee> fullEmployees = globalService.displayEmployee();
 			return ResponseEntity.ok(fullEmployees);
 		}
@@ -44,12 +41,11 @@ public class GlobalController {
 	// SHOW Employees per Office
 	@GetMapping("/employeeAtOffice")
 	public ResponseEntity<List<Employee>> displayEmployeeOffice(@RequestHeader("Authorization") String session) {
-		LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+		LoginService lService = getLoginService();
 		if (!lService.checkSession(session)) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		} else {
-			GlobalRepository globalRepository = new GlobalRepository();
-			GlobalService globalService = new GlobalServiceImpl(globalRepository);
+			GlobalService globalService = getGlobalService();
 			List<Employee> employeeAtOffice = globalService.displayEmployeeOffice();
 			return ResponseEntity.ok(employeeAtOffice);
 		}
@@ -58,12 +54,11 @@ public class GlobalController {
 	// SHOW Employees per Position
 		@GetMapping("/employeePosition")
 		public ResponseEntity<List<Employee>> displayEmployeePosition(@RequestHeader("Authorization") String session) {
-			LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+			LoginService lService = getLoginService();
 			if (!lService.checkSession(session)) {
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			} else {
-				GlobalRepository globalRepository = new GlobalRepository();
-				GlobalService globalService = new GlobalServiceImpl(globalRepository);
+				GlobalService globalService = getGlobalService();
 				List<Employee> employeePosition = globalService.displayEmployeePosition();
 				return ResponseEntity.ok(employeePosition);
 			}
@@ -72,12 +67,11 @@ public class GlobalController {
 		// SHOW total Employees 
 		@GetMapping("/totalEmployee")
 		public ResponseEntity<Integer> sumEmployee(@RequestHeader("Authorization") String session) {
-			LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+			LoginService lService = getLoginService();
 			if (!lService.checkSession(session)) {
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			} else {
-				GlobalRepository globalRepository = new GlobalRepository();
-				GlobalService globalService = new GlobalServiceImpl(globalRepository);
+				GlobalService globalService = getGlobalService();
 				int totalEmployee = globalService.sumEmployee();
 				return ResponseEntity.ok(totalEmployee);
 			}
@@ -86,12 +80,11 @@ public class GlobalController {
 		// SHOW total Software 
 		@GetMapping("/totalSoftware")
 		public ResponseEntity <Integer> sumSoftware(@RequestHeader("Authorization") String session) {
-			LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+			LoginService lService = getLoginService();
 			if (!lService.checkSession(session)) {
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			} else {
-				GlobalRepository globalRepository = new GlobalRepository();
-				GlobalService globalService = new GlobalServiceImpl(globalRepository);
+				GlobalService globalService = getGlobalService();
 				int totalSoftware = globalService.sumSoftware();
 				return ResponseEntity.ok(totalSoftware);
 			}
@@ -99,14 +92,21 @@ public class GlobalController {
 		// SHOW total laptop 
 		@GetMapping("/totalLaptop")
 		public ResponseEntity <Integer> sumLaptop(@RequestHeader("Authorization") String session) {
-			LoginService lService = new LoginServiceImpl(loginRepository, eHelper);
+			LoginService lService = getLoginService();
 			if (!lService.checkSession(session)) {
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			} else {
-				GlobalRepository globalRepository = new GlobalRepository();
-				GlobalService globalService = new GlobalServiceImpl(globalRepository);
+				GlobalService globalService = getGlobalService();
 				int totalLaptop = globalService.sumLaptop();
 				return ResponseEntity.ok(totalLaptop);
 			}
+		}
+		
+		protected static LoginService getLoginService() {
+			return new LoginServiceImpl(new LoginRepository(), new EncodingHelper());
+		}
+		
+		protected static GlobalService getGlobalService() {
+			return new GlobalServiceImpl(new GlobalRepository());
 		}
 }
