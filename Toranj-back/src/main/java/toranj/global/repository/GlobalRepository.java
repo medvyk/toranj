@@ -200,7 +200,7 @@ public class GlobalRepository {
 	Connection connection = connectionUtil.connect();	
 	
 	
-	String query= "select sum(idSoftware) as total from software";	
+	String query= "select sum(Stock) as total from toranjdb.software";	
 	
 	int totalSoftware=0;	
 	
@@ -229,7 +229,7 @@ public class GlobalRepository {
 	Connection connection = connectionUtil.connect();	
 	
 	
-	String query= "select sum(idLaptop) as total from laptop";	
+	String query= "select sum(stock) as total from toranjdb.laptop";	
 	
 	int totalLaptop=0;	
 	
