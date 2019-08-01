@@ -15,4 +15,4 @@ I did Unit Test to have a better control of the code.
 
 In the frontend I used plain javascript. I created ajax requests to get and to send the information.
 
-For the css I used some free templates in bootstrap that I've modified in order to achive the resoults I wanted.
+For the css I used some free templates in bootstrap that I've modified in order to achive the results I wanted.
